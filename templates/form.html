@@ -1,0 +1,221 @@
+﻿
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-xl-6 col-lg-7">
+
+        <div class="text-center mb-4">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" 
+                 alt="Nexivara Logo" 
+                 style="max-width: 140px; margin-bottom: 1.5rem;">
+                 
+            <h1 class="neon-text mb-2" style="font-size: 2rem;">
+                SMART CAREER DECISION ENGINE FOR BSC / BCA GRADUATES
+            </h1>
+        </div>
+
+        <div class="glass-card form-sheet">
+            <form action="/result" method="post" autocomplete="off">
+
+                <div class="row g-4">
+
+                    <!-- ✅ DEGREE -->
+                    <div class="col-12">
+                        <label class="form-label">Select Degree</label>
+                        <select name="degree" class="form-select form-select-lg bg-dark text-white border-secondary" required>
+
+    <option value="">-- Select Degree --</option>
+
+    <option value="BSc"
+        {% if existing and existing.degree == "BSc" %}selected{% endif %}>
+        BSc
+    </option>
+
+    <option value="BCA"
+        {% if existing and existing.degree == "BCA" %}selected{% endif %}>
+        BCA
+    </option>
+
+</select>
+                    </div>
+
+
+                    <!-- CGPA -->
+                    <div class="col-12">
+                        <label class="form-label">CGPA</label>
+                        <input type="number"
+                               name="cgpa"
+                               class="form-control form-control-lg bg-dark text-white border-secondary"
+                               min="1" max="10" step="0.1"
+                               placeholder="Enter CGPA (1-10)"
+                               value="{{ existing.cgpa if existing else '' }}"
+                               required>
+                    </div>
+
+                    <!-- SKILLS -->
+                    <div class="col-12">
+                        <label class="form-label">Skills</label>
+                        <input type="text"
+                               name="skills"
+                               class="form-control form-control-lg bg-dark text-white border-secondary"
+                               placeholder="e.g. Python, Communication"
+                               pattern="^[A-Za-z,+# ]+$"
+                               title="Only alphabets and commas allowed"
+                               value="{{ existing.skills if existing else '' }}"
+                               required>
+                    </div>
+
+                    <!-- FOCUS -->
+                    <div class="col-md-6">
+                        <label class="form-label d-flex justify-content-between align-items-center">
+                            Focus Level 
+                            <span id="focusValue" class="range-value">
+                                {{ existing.focus_level if existing else 5 }}
+                            </span>
+                        </label>
+
+                        <input id="focusRange"
+                               type="range"
+                               name="focus_level"
+                               class="form-range"
+                               min="1" max="10"
+                               value="{{ existing.focus_level if existing else 5 }}"
+                               required>
+                    </div>
+
+                    <!-- FINANCIAL -->
+                    <div class="col-md-6">
+                        <label class="form-label d-flex justify-content-between align-items-center">
+                            Financial Stability 
+                            <span id="financeValue" class="range-value">
+                                {{ existing.financial_stability if existing else 5 }}
+                            </span>
+                        </label>
+
+                        <input id="financeRange"
+                               type="range"
+                               name="financial_stability"
+                               class="form-range"
+                               min="1" max="10"
+                               value="{{ existing.financial_stability if existing else 5 }}"
+                               required>
+                    </div>
+
+                    <!-- DISTRICT -->
+                    <div class="col-12">
+                        <label class="form-label">Current Location (Karnataka District)</label>
+
+                        {% set d = existing.district if existing else '' %}
+
+                        <select name="district" class="form-select form-select-lg bg-dark text-white border-secondary" required>
+                            <option value="" disabled {% if not d %}selected{% endif %}>Select Karnataka district</option>
+
+                            <option value="Bagalkot" {% if d=='Bagalkot' %}selected{% endif %}>Bagalkot</option>
+                            <option value="Ballari" {% if d=='Ballari' %}selected{% endif %}>Ballari</option>
+                            <option value="Belagavi" {% if d=='Belagavi' %}selected{% endif %}>Belagavi</option>
+                            <option value="Bengaluru Rural" {% if d=='Bengaluru Rural' %}selected{% endif %}>Bengaluru Rural</option>
+                            <option value="Bengaluru Urban" {% if d=='Bengaluru Urban' %}selected{% endif %}>Bengaluru Urban</option>
+                            <option value="Bidar" {% if d=='Bidar' %}selected{% endif %}>Bidar</option>
+                            <option value="Chamarajanagar" {% if d=='Chamarajanagar' %}selected{% endif %}>Chamarajanagar</option>
+                            <option value="Chikkaballapur" {% if d=='Chikkaballapur' %}selected{% endif %}>Chikkaballapur</option>
+                            <option value="Chikkamagaluru" {% if d=='Chikkamagaluru' %}selected{% endif %}>Chikkamagaluru</option>
+                            <option value="Chitradurga" {% if d=='Chitradurga' %}selected{% endif %}>Chitradurga</option>
+                            <option value="Dakshina Kannada" {% if d=='Dakshina Kannada' %}selected{% endif %}>Dakshina Kannada</option>
+                            <option value="Davanagere" {% if d=='Davanagere' %}selected{% endif %}>Davanagere</option>
+                            <option value="Dharwad" {% if d=='Dharwad' %}selected{% endif %}>Dharwad</option>
+                            <option value="Gadag" {% if d=='Gadag' %}selected{% endif %}>Gadag</option>
+                            <option value="Hassan" {% if d=='Hassan' %}selected{% endif %}>Hassan</option>
+                            <option value="Haveri" {% if d=='Haveri' %}selected{% endif %}>Haveri</option>
+                            <option value="Kalaburagi" {% if d=='Kalaburagi' %}selected{% endif %}>Kalaburagi</option>
+                            <option value="Kodagu" {% if d=='Kodagu' %}selected{% endif %}>Kodagu</option>
+                            <option value="Kolar" {% if d=='Kolar' %}selected{% endif %}>Kolar</option>
+                            <option value="Koppal" {% if d=='Koppal' %}selected{% endif %}>Koppal</option>
+                            <option value="Mandya" {% if d=='Mandya' %}selected{% endif %}>Mandya</option>
+                            <option value="Mysuru" {% if d=='Mysuru' %}selected{% endif %}>Mysuru</option>
+                            <option value="Raichur" {% if d=='Raichur' %}selected{% endif %}>Raichur</option>
+                            <option value="Ramanagara" {% if d=='Ramanagara' %}selected{% endif %}>Ramanagara</option>
+                            <option value="Shivamogga" {% if d=='Shivamogga' %}selected{% endif %}>Shivamogga</option>
+                            <option value="Tumakuru" {% if d=='Tumakuru' %}selected{% endif %}>Tumakuru</option>
+                            <option value="Udupi" {% if d=='Udupi' %}selected{% endif %}>Udupi</option>
+                            <option value="Uttara Kannada" {% if d=='Uttara Kannada' %}selected{% endif %}>Uttara Kannada</option>
+                            <option value="Vijayapura" {% if d=='Vijayapura' %}selected{% endif %}>Vijayapura</option>
+                            <option value="Yadgir" {% if d=='Yadgir' %}selected{% endif %}>Yadgir</option>
+                        </select>
+                    </div>
+
+                    <!-- PREFERRED LOCATION -->
+                    <div class="col-12">
+                        <label class="form-label">Preferred Work / Study Location (India)</label>
+
+                        {% set p = existing.preferred_location if existing else '' %}
+
+                        <select name="preferred_location" class="form-select form-select-lg bg-dark text-white border-secondary" required>
+                            <option value="" disabled {% if not p %}selected{% endif %}>Select State</option>
+
+                            <option value="All India" {% if p=='All India' %}selected{% endif %}>All India</option>
+                            <option value="Andhra Pradesh" {% if p=='Andhra Pradesh' %}selected{% endif %}>Andhra Pradesh</option>
+                            <option value="Arunachal Pradesh" {% if p=='Arunachal Pradesh' %}selected{% endif %}>Arunachal Pradesh</option>
+                            <option value="Assam" {% if p=='Assam' %}selected{% endif %}>Assam</option>
+                            <option value="Bihar" {% if p=='Bihar' %}selected{% endif %}>Bihar</option>
+                            <option value="Chhattisgarh" {% if p=='Chhattisgarh' %}selected{% endif %}>Chhattisgarh</option>
+                            <option value="Goa" {% if p=='Goa' %}selected{% endif %}>Goa</option>
+                            <option value="Gujarat" {% if p=='Gujarat' %}selected{% endif %}>Gujarat</option>
+                            <option value="Haryana" {% if p=='Haryana' %}selected{% endif %}>Haryana</option>
+                            <option value="Himachal Pradesh" {% if p=='Himachal Pradesh' %}selected{% endif %}>Himachal Pradesh</option>
+                            <option value="Jharkhand" {% if p=='Jharkhand' %}selected{% endif %}>Jharkhand</option>
+                            <option value="Karnataka" {% if p=='Karnataka' %}selected{% endif %}>Karnataka</option>
+                            <option value="Kerala" {% if p=='Kerala' %}selected{% endif %}>Kerala</option>
+                            <option value="Madhya Pradesh" {% if p=='Madhya Pradesh' %}selected{% endif %}>Madhya Pradesh</option>
+                            <option value="Maharashtra" {% if p=='Maharashtra' %}selected{% endif %}>Maharashtra</option>
+                            <option value="Manipur" {% if p=='Manipur' %}selected{% endif %}>Manipur</option>
+                            <option value="Meghalaya" {% if p=='Meghalaya' %}selected{% endif %}>Meghalaya</option>
+                            <option value="Mizoram" {% if p=='Mizoram' %}selected{% endif %}>Mizoram</option>
+                            <option value="Nagaland" {% if p=='Nagaland' %}selected{% endif %}>Nagaland</option>
+                            <option value="Odisha" {% if p=='Odisha' %}selected{% endif %}>Odisha</option>
+                            <option value="Punjab" {% if p=='Punjab' %}selected{% endif %}>Punjab</option>
+                            <option value="Rajasthan" {% if p=='Rajasthan' %}selected{% endif %}>Rajasthan</option>
+                            <option value="Sikkim" {% if p=='Sikkim' %}selected{% endif %}>Sikkim</option>
+                            <option value="Tamil Nadu" {% if p=='Tamil Nadu' %}selected{% endif %}>Tamil Nadu</option>
+                            <option value="Telangana" {% if p=='Telangana' %}selected{% endif %}>Telangana</option>
+                            <option value="Tripura" {% if p=='Tripura' %}selected{% endif %}>Tripura</option>
+                            <option value="Uttar Pradesh" {% if p=='Uttar Pradesh' %}selected{% endif %}>Uttar Pradesh</option>
+                            <option value="Uttarakhand" {% if p=='Uttarakhand' %}selected{% endif %}>Uttarakhand</option>
+                            <option value="West Bengal" {% if p=='West Bengal' %}selected{% endif %}>West Bengal</option>
+                            <option value="Delhi" {% if p=='Delhi' %}selected{% endif %}>Delhi</option>
+                        </select>
+                    </div>
+
+                    <!-- SUBMIT -->
+                    <div class="col-12 text-center pt-3">
+                        <button type="submit" class="btn btn-accent btn-lg px-5">Submit</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function updateRangeValue(rangeId, valueId) {
+        const range = document.getElementById(rangeId);
+        const value = document.getElementById(valueId);
+
+        if (!range || !value) return;
+
+        value.innerText = range.value;
+
+        range.addEventListener("input", () => {
+            value.innerText = range.value;
+        });
+    }
+
+    updateRangeValue("focusRange", "focusValue");
+    updateRangeValue("financeRange", "financeValue");
+</script>
+{% endblock %}
+

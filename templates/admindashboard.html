@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="neon-text">ADMIN DASHBOARD</h2>
+        <a href="/admin-logout" class="btn btn-danger">Logout</a>
+    </div>
+
+    <!-- TOTAL USERS -->
+    <div class="glass-card p-3 mb-4 text-center">
+        <h5>Total Users: {{ total_users }}</h5>
+    </div>
+
+    <!-- USERS TABLE -->
+    <div class="glass-card p-4 mb-4">
+        <h4 class="section-title mb-3">Registered Users</h4>
+
+        <div class="table-responsive">
+            <table class="table table-dark table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Action</th> <!-- NEW -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>
+                            <a href="/admin/delete_user/{{ user.id }}" 
+                               class="btn btn-danger btn-sm">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CAREER STATS -->
+    <div class="glass-card p-4 mb-4">
+        <h4 class="section-title mb-3">Career Distribution</h4>
+
+        <ul>
+            {% for career, count in career_stats.items() %}
+                <li>{{ career }} : {{ count }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- USER INPUT DATA -->
+    <div class="glass-card p-4">
+        <h4 class="section-title mb-3">User Career Data</h4>
+
+        <div class="table-responsive">
+            <table class="table table-dark table-bordered">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>CGPA</th>
+                        <th>Skills</th>
+                        <th>Focus</th>
+                        <th>Financial</th>
+                        <th>District</th>
+                        <th>Preferred Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for d in data %}
+                    <tr>
+                        <td>{{ d.user_id }}</td>
+                        <td>{{ d.cgpa }}</td>
+                        <td>{{ d.skills }}</td>
+                        <td>{{ d.focus_level }}</td>
+                        <td>{{ d.financial_stability }}</td>
+                        <td>{{ d.district }}</td>
+                        <td>{{ d.preferred_location }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

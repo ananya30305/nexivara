@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-xl-6 col-lg-7">
+
+        <div class="text-center mb-4">
+            <img src="{{ url_for('static', filename='images/logo.png') }}"
+                 style="max-width: 140px; margin-bottom: 1.5rem;">
+            <h1 class="neon-text mb-2" style="font-size: 2rem;">
+                WELCOME TO NEXIVARA
+            </h1>
+
+            <p class="text-muted">
+                Login to check your career path
+            </p>
+        </div>
+
+        <div class="glass-card form-sheet">
+
+            {% if error %}
+                <p style="color:red; text-align:center;">{{ error }}</p>
+            {% endif %}
+
+            <form action="/login" method="post">
+
+                <div class="row g-4">
+
+                    <!-- USERNAME -->
+                    <div class="col-12">
+                        <label class="form-label">Username</label>
+                        <input type="text"
+                               name="username"
+                               class="form-control form-control-lg bg-dark text-white border-secondary"
+                               placeholder="Enter Username (new or existing)"
+                               required>
+                    </div>
+
+                    <!-- PASSWORD WITH IMPROVED TOGGLE -->
+                    <div class="col-12">
+                        <label class="form-label">Password</label>
+
+                        <div class="position-relative">
+
+                            <input type="password"
+                                   id="password"
+                                   name="password"
+                                   class="form-control form-control-lg bg-dark text-white border-secondary pe-5"
+                                   placeholder="Enter Password"
+                                   required>
+
+                            <!-- Improved Eye Icon -->
+                            <span id="togglePassword"
+                                  style="
+                                  position:absolute;
+                                  top:50%;
+                                  right:18px;
+                                  transform:translateY(-50%);
+                                  cursor:pointer;
+                                  font-size:1.3rem;
+                                  color:#00e5ff;
+                                  transition:0.3s;
+                                  ">
+                                <i class="bi bi-eye-slash-fill"></i>
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <!-- LOGIN BUTTON -->
+                    <div class="col-12 text-center pt-3">
+                        <button type="submit" class="btn btn-accent btn-lg px-5">
+                            Login
+                        </button>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<script>
+    const togglePassword = document.getElementById('togglePassword');
+    const password = document.getElementById('password');
+    const icon = togglePassword.querySelector('i');
+
+    togglePassword.addEventListener('click', function () {
+        const type = password.type === 'password' ? 'text' : 'password';
+        password.type = type;
+
+        // Switch icon
+        icon.classList.toggle('bi-eye');
+        icon.classList.toggle('bi-eye-slash-fill');
+    });
+
+    // Hover effect (optional but looks premium)
+    togglePassword.addEventListener('mouseover', () => {
+        togglePassword.style.color = '#00fff7';
+    });
+
+    togglePassword.addEventListener('mouseout', () => {
+        togglePassword.style.color = '#00e5ff';
+    });
+</script>
+
+{% endblock %}

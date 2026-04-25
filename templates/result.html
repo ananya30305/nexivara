@@ -1,0 +1,235 @@
+﻿{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+body {
+    background: black;
+    color: white;
+    text-align: center;
+}
+
+.neon {
+    color: #00e5ff;
+    text-shadow: 0 0 10px #00e5ff;
+}
+
+.table-container {
+    margin-top: 60px;
+}
+
+/* ✅ UPDATED FLEX */
+.flex-box {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.custom-table {
+    width: 350px;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+}
+
+.custom-table th {
+    background: #00e5ff;
+    color: black;
+    padding: 12px;
+}
+
+.custom-table td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.custom-table tr:hover {
+    background: rgba(0, 229, 255, 0.1);
+}
+
+.highlight {
+    color: #00ff9c;
+    font-weight: bold;
+}
+
+.chart-box {
+    width: 300px;
+}
+
+.next-btn {
+    margin-top: 25px;
+    padding: 10px 25px;
+    border: none;
+    background: #00e5ff;
+    color: black;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.next-btn:hover {
+    background: #00bcd4;
+}
+
+/* SECTION CARDS */
+.section-box {
+    margin-top: 40px;
+    padding: 20px;
+    border: 1px solid rgba(0,229,255,0.3);
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,229,255,0.2);
+    width: 300px;
+}
+
+ul {
+    text-align: left;
+    margin: 0;
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 8px;
+}
+</style>
+
+<!-- STEP 1 -->
+<div id="thankyou" style="margin-top:150px;">
+    <h1 class="neon">Thank you for using Nexivara</h1>
+    <p>Analyzing your profile...</p>
+</div>
+
+<!-- STEP 2 -->
+<div id="tableBox" class="table-container" style="display:none;">
+
+    <h2 class="neon">Your Career Comparison</h2>
+
+    <div class="flex-box">
+
+        <!-- TABLE -->
+        <table class="custom-table">
+            <tr>
+                <th>Option</th>
+                <th>Match %</th>
+            </tr>
+
+            {% for key, value in scores.items() %}
+            <tr class="{% if key == prediction %}highlight{% endif %}">
+                <td>{{ key }}</td>
+                <td>{{ value }}%</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <!-- CHART -->
+        <div class="chart-box">
+            <canvas id="pieChart"></canvas>
+        </div>
+
+    </div>
+
+    <!-- RESULT -->
+    <h3 style="margin-top:20px;">
+        Best Option:
+        <span class="neon">
+            {{ prediction if prediction else "Not Available" }}
+        </span>
+    </h3>
+
+    <!-- ✅ SIDE BY SIDE SECTION -->
+    <div class="flex-box">
+
+        <!-- ABOUT -->
+        {% if career_info %}
+        <div class="section-box">
+            <h4 class="neon">About This Career</h4>
+            <p>{{ career_info }}</p>
+        </div>
+        {% endif %}
+
+        <!-- ROADMAP -->
+        {% if roadmap %}
+        <div class="section-box">
+            <h4 class="neon">Career Roadmap</h4>
+            <ul>
+                {% for step in roadmap %}
+                <li>➡ {{ step }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <!-- SKILLS -->
+        {% if skill_suggestions %}
+        <div class="section-box">
+            <h4 class="neon">Recommended Skills</h4>
+            <ul>
+                {% for skill in skill_suggestions %}
+                <li>✔ {{ skill }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <!-- BUTTON -->
+    <button class="next-btn" onclick="goToGoogle()">Explore Opportunities</button>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+const query = {{ google_query | tojson | safe }};
+const scores = {{ scores | tojson }};
+
+setTimeout(function() {
+    document.getElementById("thankyou").style.display = "none";
+    document.getElementById("tableBox").style.display = "block";
+    createChart();
+}, 3000);
+
+function createChart() {
+    const ctx = document.getElementById('pieChart');
+
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: Object.keys(scores),
+            datasets: [{
+                data: Object.values(scores)
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: "white"
+                    }
+                }
+            }
+        }
+    });
+}
+
+function goToGoogle() {
+    if (!query) {
+        alert("No search query generated!");
+        return;
+    }
+    window.location.href =
+    "https://www.google.com/search?q=" + encodeURIComponent(query);
+}
+
+</script>
+
+{% endblock %}
