@@ -36,7 +36,7 @@
                                required>
                     </div>
 
-                    <!-- PASSWORD WITH IMPROVED TOGGLE -->
+                    <!-- PASSWORD -->
                     <div class="col-12">
                         <label class="form-label">Password</label>
 
@@ -45,11 +45,12 @@
                             <input type="password"
                                    id="password"
                                    name="password"
+                                   autocomplete="new-password"
                                    class="form-control form-control-lg bg-dark text-white border-secondary pe-5"
                                    placeholder="Enter Password"
                                    required>
 
-                            <!-- Improved Eye Icon -->
+                            <!-- ONLY ONE ICON -->
                             <span id="togglePassword"
                                   style="
                                   position:absolute;
@@ -59,7 +60,6 @@
                                   cursor:pointer;
                                   font-size:1.3rem;
                                   color:#00e5ff;
-                                  transition:0.3s;
                                   ">
                                 <i class="bi bi-eye-slash-fill"></i>
                             </span>
@@ -89,6 +89,18 @@
 <!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
+<style>
+/* 🔥 REMOVE DEFAULT BROWSER PASSWORD ICON */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+input[type="password"]::-webkit-credentials-auto-fill-button {
+    display: none !important;
+}
+</style>
+
 <script>
     const togglePassword = document.getElementById('togglePassword');
     const password = document.getElementById('password');
@@ -98,18 +110,8 @@
         const type = password.type === 'password' ? 'text' : 'password';
         password.type = type;
 
-        // Switch icon
         icon.classList.toggle('bi-eye');
         icon.classList.toggle('bi-eye-slash-fill');
-    });
-
-    // Hover effect (optional but looks premium)
-    togglePassword.addEventListener('mouseover', () => {
-        togglePassword.style.color = '#00fff7';
-    });
-
-    togglePassword.addEventListener('mouseout', () => {
-        togglePassword.style.color = '#00e5ff';
     });
 </script>
 
