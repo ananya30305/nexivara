@@ -1,5 +1,7 @@
-<<<<<<< HEAD
+
 import email
+import os
+import re
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, render_template, request, redirect, session
@@ -7,12 +9,16 @@ from flask_sqlalchemy import SQLAlchemy
 from collections import Counter
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'nexivara-secret-key'
+
+app.config['SECRET_KEY'] = os.environ.get(
+    'SECRET_KEY',
+    'nexivara-secret-key'
+)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
-import re
 
 def is_valid_gmail(email):
     pattern = r'^[a-zA-Z0-9._%+-]+@gmail\.com$'
@@ -63,6 +69,13 @@ class User(db.Model):
 
     reviews = db.relationship(
         'Review',
+        backref='user',
+        lazy=True,
+        cascade='all, delete'
+    )
+
+    inputs = db.relationship(
+        'UserInput',
         backref='user',
         lazy=True,
         cascade='all, delete'
