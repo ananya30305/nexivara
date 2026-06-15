@@ -154,7 +154,7 @@ nexivara/
 
 ## Author
 
-Ananya
+Ananya P
 
 GitHub:
 https://github.com/ananya30305
