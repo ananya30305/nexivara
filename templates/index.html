@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block body_class %}splash-page{% endblock %}
+
+{% block content %}
+<section class="splash-screen text-white">
+    <div class="position-relative" style="width: 100%; height: 100vh; background: #000;">
+        <video id="splashVideo" class="w-100 h-100" autoplay muted playsinline preload="auto" style="object-fit: cover; background: #000;">
+            <source src="{{ url_for('static', filename='videos/logovideo.mp4') }}" type="video/mp4">
+            Your browser does not support the splash video.
+        </video>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const splashVideo = document.getElementById('splashVideo');
+    const redirectToLoading = () => {
+        window.location.href = "{{ url_for('loading') }}";
+    };
+
+    splashVideo.addEventListener('ended', redirectToLoading);
+    splashVideo.addEventListener('error', function() {
+        setTimeout(redirectToLoading, 1500);
+    });
+</script>
+{% endblock %}

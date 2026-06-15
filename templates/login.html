@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-xl-6 col-lg-7">
+
+        <div class="text-center mb-4">
+            <img src="{{ url_for('static', filename='images/logo.png') }}"
+                 style="max-width: 140px; margin-bottom: 1.5rem;">
+            <h1 class="neon-text mb-2" style="font-size: 2rem;">
+                WELCOME TO NEXIVARA
+            </h1>
+
+            <p class="text-muted">
+                Login to check your career path
+            </p>
+        </div>
+
+        <div class="glass-card form-sheet">
+
+            {% if error %}
+                <p style="color:red; text-align:center;">{{ error }}</p>
+            {% endif %}
+
+            <form action="/login" method="post">
+
+                <div class="row g-4">
+
+                    <!-- USERNAME -->
+                    <div class="col-12">
+                        <label class="form-label">Username</label>
+                       
+                       <input type="text"
+       name="username"
+       class="form-control form-control-lg bg-dark text-white border-secondary"
+       placeholder="Username"
+       pattern="^[a-zA-Z][a-zA-Z0-9._]{2,29}$"
+       title="Username must start with a letter and can contain letters, numbers, dots and underscores only"
+       required>
+                    </div>
+
+                    <!-- PASSWORD WITH IMPROVED TOGGLE -->
+                    <div class="col-12">
+                        <label class="form-label">Password</label>
+
+                        <div class="position-relative">
+
+                            <input type="password"
+                                   id="password"
+                                   name="password"
+                                   class="form-control form-control-lg bg-dark text-white border-secondary pe-5"
+                                   placeholder="Enter Password"
+                                   required>
+
+                            <!-- Improved Eye Icon -->
+                            
+                        </div>
+                    </div>
+
+                    <!-- LOGIN BUTTON -->
+                    <div class="col-12 text-center pt-3">
+                        <button type="submit" class="btn btn-accent btn-lg px-5">
+                            Login
+                        </button>
+                    </div>
+                    <div class="col-12 text-center">
+    <p class="text-muted">
+        Don't have an account?
+        <a href="/signup" style="color:#00d4ff;">Sign Up</a>
+    </p>
+</div>
+<div class="col-12 text-center">
+    <a href="/forgot-password" style="color:#00d4ff;">
+        Forgot Password?
+    </a>
+</div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+
+
+{% endblock %}

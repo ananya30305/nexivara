@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-xl-6 col-lg-7">
+
+        <div class="text-center mb-4">
+            <img src="{{ url_for('static', filename='images/logo.png') }}"
+                 style="max-width: 140px; margin-bottom: 1.5rem;">
+                 
+            <h1 class="neon-text mb-2" style="font-size: 2rem;">
+                CREATE ACCOUNT
+            </h1>
+
+            <p class="text-muted">
+                Join Nexivara to get career predictions
+            </p>
+        </div>
+
+        <div class="glass-card form-sheet">
+
+            {% if error %}
+                <p style="color:red; text-align:center;">{{ error }}</p>
+            {% endif %}
+
+            <form action="/signup" method="post">
+
+                <div class="row g-4">
+
+                    <!-- USERNAME -->
+                    <div class="col-12">
+                        <label class="form-label">Username</label>
+                        <input type="text"
+       name="username"
+       class="form-control form-control-lg bg-dark text-white border-secondary"
+       placeholder="Username"
+       pattern="^[a-zA-Z][a-zA-Z0-9._]{2,29}$"
+       title="Username must start with a letter and can contain letters, numbers, dots and underscores only"
+       required>
+                    </div>
+<!-- EMAIL -->
+<div class="col-12">
+    <label class="form-label">Email</label>
+
+    <input type="email"
+           name="email"
+           class="form-control form-control-lg bg-dark text-white border-secondary"
+           placeholder="Enter Email"
+           required>
+</div>
+                   <!-- PASSWORD -->
+<div class="col-12">
+    <label class="form-label">Password</label>
+
+    <div class="position-relative">
+        <input type="password"
+               id="password"
+               name="password"
+               class="form-control form-control-lg bg-dark text-white border-secondary pe-5"
+               placeholder="Enter Password"
+               required>
+
+    </div>
+</div>
+<small class="text-info">
+Password must contain:
+1 uppercase, 1 lowercase, 1 number, 1 special character and minimum 8 characters
+</small>
+
+<!-- CONFIRM PASSWORD -->
+<div class="col-12">
+    <label class="form-label">Confirm Password</label>
+
+    <div class="position-relative">
+        <input type="password"
+               id="confirm_password"
+               name="confirm_password"
+               class="form-control form-control-lg bg-dark text-white border-secondary pe-5"
+               placeholder="Confirm Password"
+               required>
+
+    </div>
+</div>
+                    <!-- BUTTON -->
+                    <div class="col-12 text-center pt-3">
+                        <button type="submit" class="btn btn-accent btn-lg px-5">
+                            Sign Up
+                        </button>
+                    </div>
+
+                    <!-- LOGIN LINK -->
+                    <div class="col-12 text-center">
+                        <p class="text-muted">
+                            Already have an account?
+                            <a href="/login-page" style="color:#00d4ff;">Login</a>
+                        </p>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<script>
+    
+</script>
+
+{% endblock %}

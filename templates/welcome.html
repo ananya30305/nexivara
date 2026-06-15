@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row justify-content-center align-items-center"
+     style="min-height:80vh;">
+
+    <div class="col-lg-10">
+
+        <div class="glass-card p-5 text-center">
+
+            <img src="{{ url_for('static',
+            filename='images/logo.png') }}"
+            style="max-width:350px"; style="max-height:350px;">
+
+            <h1 class="neon-text mt-4">
+                Welcome to Nexivara
+            </h1>
+
+            <p class="lead mt-3 text-light">
+                Smart Career Decision Engine for Students(BSC/BCA)
+            </p>
+
+            <hr>
+
+            <h4 class="mb-4">
+                What Nexivara Can Do For You
+            </h4>
+
+            <div class="row g-4 mt-2">
+
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100">
+                        <h5>🎯 Career Prediction</h5>
+
+                        <p>
+                            Discover the best career path
+                            based on your CGPA, skills,
+                            focus level and financial status.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100">
+                        <h5>📈 Skill Analysis</h5>
+
+                        <p>
+                            Identify missing skills and
+                            receive recommendations to
+                            improve your employability.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100">
+                        <h5>🗺 Career Roadmap</h5>
+
+                        <p>
+                            Get a personalized roadmap
+                            showing what steps to take
+                            after graduation.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-5">
+
+                <h4>
+                    Why Use Nexivara?
+                </h4>
+
+                <p class="mt-3">
+                    Students often feel confused about
+                    choosing between higher studies,
+                    jobs, internships, certifications,
+                    and government careers.
+
+                    Nexivara helps you make a smarter
+                    decision using a structured
+                    prediction system.
+                </p>
+
+            </div>
+
+            <div class="mt-5">
+
+                <a href="/login-page"
+class="btn btn-success btn-lg px-5 me-3">
+🚀 Try Now
+</a>
+                <a href="/login-page"
+                   class="btn btn-accent btn-lg px-5">
+
+                    Login / Signup
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

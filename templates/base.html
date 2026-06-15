@@ -1,0 +1,330 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexivara – Smart Career Decision Engine</title>
+   <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+      <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      :root {
+        --bg: #030506;
+        --panel: rgba(7, 16, 11, 0.92);
+        --text: #e8ffe8;
+        --muted: #a8f2ff;
+        --accent: #00e5ff;
+        --border: rgba(0, 229, 255, 0.25);
+    }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+             margin: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+
+    background:
+        radial-gradient(circle at top left,
+        rgba(0,229,255,0.12),
+        transparent 25%),
+
+        radial-gradient(circle at bottom right,
+        rgba(0,140,255,0.12),
+        transparent 28%),
+
+        linear-gradient(
+        -45deg,
+        #02040a,
+        #08111f,
+        #001f3f,
+        #071018
+    );
+
+    background-size: 400% 400%;
+
+    animation: gradientMove 14s ease infinite;
+
+    color: var(--text);
+
+    overflow-x: hidden;
+        }
+        @keyframes gradientMove {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+        body.splash-page {
+            background: #000;
+        }
+
+        body.loading-page {
+            background: #000;
+        }
+
+        .page-fade {
+            opacity: 0;
+            animation: fadeInPage 0.8s ease forwards;
+        }
+
+        @keyframes fadeInPage {
+            to { opacity: 1; }
+        }
+
+        select, option {
+            background-color: #0b0b0b !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(0, 229, 255, 0.5) !important;
+        }
+
+        select option:hover {
+            background-color: rgba(0, 229, 255, 0.15) !important;
+            color: #00e5ff !important;
+        }
+
+        .glass-card {
+
+    background: rgba(8, 15, 25, 0.72);
+
+    border: 1px solid rgba(0, 229, 255, 0.18);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.35),
+        0 0 25px rgba(0,229,255,0.06);
+
+    backdrop-filter: blur(18px);
+
+    transition: 0.3s ease;
+}
+
+.glass-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 18px 50px rgba(0,0,0,0.45),
+        0 0 30px rgba(0,229,255,0.15);
+}
+
+        .accent-border {
+            border: 1px solid rgba(124,255,126,0.45);
+        }
+
+        .section-title {
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .neon-text {
+            color: var(--accent);
+            text-shadow: 0 0 18px rgba(0,229,255,0.95), 0 0 28px rgba(0,229,255,0.55);
+        }
+
+        .glass-card img {
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            object-fit: cover;
+            width: 100%;
+            height: 220px;
+        }
+
+        .glass-card .card-body {
+            padding: 1.5rem;
+        }
+
+        .btn-accent {
+
+    background: linear-gradient(
+        135deg,
+        #00e5ff,
+        #008cff
+    );
+
+    color: white;
+
+    border: none;
+
+    border-radius: 14px;
+
+    font-weight: 600;
+
+    transition: 0.3s ease;
+
+    box-shadow:
+        0 0 20px rgba(0,229,255,0.25);
+}
+
+.btn-accent:hover {
+
+    transform: scale(1.03);
+
+    background: linear-gradient(
+        135deg,
+        #34f2ff,
+        #14baff
+    );
+
+    box-shadow:
+        0 0 35px rgba(0,229,255,0.5);
+}
+        
+        .metric-tag {
+            color: #b6ffcd;
+            font-size: 0.95rem;
+        }
+
+        .splash-screen {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 2rem;
+        }
+
+        .loading-screen {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+        }
+
+        .loading-screen img {
+            width: 140px;
+            margin-bottom: 1.6rem;
+        }
+
+        .form-sheet {
+            padding: 2rem;
+        }
+
+        .range-value {
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .result-banner {
+            border: 1px solid rgba(124,255,126,0.18);
+            background: rgba(5, 9, 8, 0.82);
+        }
+
+        @media (max-width: 768px) {
+            .glass-card {
+                border-radius: 18px;
+            }
+        }
+
+        /* LOGOUT BUTTON */
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            z-index: 1000;
+        }
+        /* PARTICLES */
+
+#particles-js {
+
+    position: fixed;
+
+    width: 100%;
+
+    height: 100%;
+
+    top: 0;
+
+    left: 0;
+
+    z-index: -1;
+}
+
+    </style>
+    {% block styles %}{% endblock %}
+</head>
+
+<body class="{% block body_class %}{% endblock %} page-fade">
+
+    <!-- ✅ SHOW ONLY ON FORM PAGE -->
+    {% if session and session.get('user_id') and request.path == '/form' %}
+        <div class="logout-btn">
+            <a href="/logout" class="btn btn-danger btn-sm">Logout</a>
+        </div>
+    {% endif %}
+
+    <main class="pt-5">
+        <div class="container py-5">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+
+    {% block scripts %}{% endblock %}
+    <!-- PARTICLES -->
+<div id="particles-js"></div>
+
+<!-- PARTICLES JS -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<script>
+
+particlesJS("particles-js", {
+
+  particles: {
+
+    number: {
+      value: 75
+    },
+
+    color: {
+      value: "#00e5ff"
+    },
+
+    shape: {
+      type: "circle"
+    },
+
+    opacity: {
+      value: 0.35
+    },
+
+    size: {
+      value: 3
+    },
+
+    move: {
+      enable: true,
+      speed: 1
+    },
+
+    line_linked: {
+
+      enable: true,
+
+      color: "#00e5ff",
+
+      opacity: 0.2
+    }
+  }
+});
+
+</script>
+
+</body>
+</html>

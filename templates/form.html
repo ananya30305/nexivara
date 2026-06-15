@@ -1,0 +1,430 @@
+﻿
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-xl-6 col-lg-7">
+
+        <div class="text-center mb-4">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" 
+                 alt="Nexivara Logo" 
+                 style="max-width: 140px; margin-bottom: 1.5rem;">
+                 
+            <h1 class="neon-text mb-2" style="font-size: 2rem;">
+                SMART CAREER DECISION ENGINE FOR <br>BSC/BCA GRADUATES
+            </h1>
+        </div>
+  
+        <div class="glass-card form-sheet">
+            <form action="/result" method="post" autocomplete="off">
+
+                <div class="row g-4">
+
+                    <!-- ✅ DEGREE -->
+                    <div class="col-12">
+                        <label class="form-label">Select Degree</label>
+                        <select name="degree" class="form-select form-select-lg bg-dark text-white border-secondary" required>
+
+    <option value="">-- Select Degree --</option>
+
+    <option value="BSc"
+        {% if existing and existing.degree == "BSc" %}selected{% endif %}>
+        BSc
+    </option>
+
+    <option value="BCA"
+        {% if existing and existing.degree == "BCA" %}selected{% endif %}>
+        BCA
+    </option>
+
+</select>
+                    </div>
+
+
+                    <!-- CGPA -->
+                    <div class="col-12">
+                        <label class="form-label">CGPA</label>
+                        <input type="number"
+                               name="cgpa"
+                               class="form-control form-control-lg bg-dark text-white border-secondary"
+                               min="1" max="10" step="0.1"
+                               placeholder="Enter CGPA (1-10)"
+                               value="{{ existing.cgpa if existing else '' }}"
+                               required>
+                    </div>
+
+                    
+                    <!-- ✅🔥 UPDATED SKILLS MULTI SELECT -->
+                    <div class="col-12">
+    <label class="form-label">Skills</label>
+
+    <select id="skillsSelect"
+        name="skills[]"
+        multiple
+        placeholder="Select your skills..."
+        class="form-select form-select-lg bg-dark text-white border-secondary"
+        required>
+
+                            <!-- Programming Languages -->
+<option value="C" {% if 'C' in selected_skills %}selected{% endif %}>C</option>
+<option value="C++" {% if 'C++' in selected_skills %}selected{% endif %}>C++</option>
+<option value="Java" {% if 'Java' in selected_skills %}selected{% endif %}>Java</option>
+<option value="Python" {% if 'Python' in selected_skills %}selected{% endif %}>Python</option>
+<option value="C#" {% if 'C#' in selected_skills %}selected{% endif %}>C#</option>
+<option value="R" {% if 'R' in selected_skills %}selected{% endif %}>R</option>
+<option value="Go" {% if 'Go' in selected_skills %}selected{% endif %}>Go</option>
+<option value="Rust" {% if 'Rust' in selected_skills %}selected{% endif %}>Rust</option>
+<option value="Kotlin" {% if 'Kotlin' in selected_skills %}selected{% endif %}>Kotlin</option>
+<option value="Swift" {% if 'Swift' in selected_skills %}selected{% endif %}>Swift</option>
+<option value="Dart" {% if 'Dart' in selected_skills %}selected{% endif %}>Dart</option>
+
+<!-- Web Development -->
+<option value="HTML" {% if 'HTML' in selected_skills %}selected{% endif %}>HTML</option>
+<option value="CSS" {% if 'CSS' in selected_skills %}selected{% endif %}>CSS</option>
+<option value="JavaScript" {% if 'JavaScript' in selected_skills %}selected{% endif %}>JavaScript</option>
+<option value="TypeScript" {% if 'TypeScript' in selected_skills %}selected{% endif %}>TypeScript</option>
+<option value="Bootstrap" {% if 'Bootstrap' in selected_skills %}selected{% endif %}>Bootstrap</option>
+<option value="Tailwind CSS" {% if 'Tailwind CSS' in selected_skills %}selected{% endif %}>Tailwind CSS</option>
+<option value="React" {% if 'React' in selected_skills %}selected{% endif %}>React</option>
+<option value="Angular" {% if 'Angular' in selected_skills %}selected{% endif %}>Angular</option>
+<option value="Vue.js" {% if 'Vue.js' in selected_skills %}selected{% endif %}>Vue.js</option>
+<option value="Next.js" {% if 'Next.js' in selected_skills %}selected{% endif %}>Next.js</option>
+<option value="Node.js" {% if 'Node.js' in selected_skills %}selected{% endif %}>Node.js</option>
+<option value="Express.js" {% if 'Express.js' in selected_skills %}selected{% endif %}>Express.js</option>
+
+<!-- Backend -->
+<option value="Django" {% if 'Django' in selected_skills %}selected{% endif %}>Django</option>
+<option value="Flask" {% if 'Flask' in selected_skills %}selected{% endif %}>Flask</option>
+<option value="Spring Boot" {% if 'Spring Boot' in selected_skills %}selected{% endif %}>Spring Boot</option>
+<option value="ASP.NET" {% if 'ASP.NET' in selected_skills %}selected{% endif %}>ASP.NET</option>
+<option value="Laravel" {% if 'Laravel' in selected_skills %}selected{% endif %}>Laravel</option>
+
+<!-- Databases -->
+<option value="SQL" {% if 'SQL' in selected_skills %}selected{% endif %}>SQL</option>
+<option value="MySQL" {% if 'MySQL' in selected_skills %}selected{% endif %}>MySQL</option>
+<option value="PostgreSQL" {% if 'PostgreSQL' in selected_skills %}selected{% endif %}>PostgreSQL</option>
+<option value="MongoDB" {% if 'MongoDB' in selected_skills %}selected{% endif %}>MongoDB</option>
+<option value="SQLite" {% if 'SQLite' in selected_skills %}selected{% endif %}>SQLite</option>
+<option value="Firebase" {% if 'Firebase' in selected_skills %}selected{% endif %}>Firebase</option>
+<option value="Redis" {% if 'Redis' in selected_skills %}selected{% endif %}>Redis</option>
+
+<!-- Data / AI -->
+<option value="Data Science" {% if 'Data Science' in selected_skills %}selected{% endif %}>Data Science</option>
+<option value="Machine Learning" {% if 'Machine Learning' in selected_skills %}selected{% endif %}>Machine Learning</option>
+<option value="Deep Learning" {% if 'Deep Learning' in selected_skills %}selected{% endif %}>Deep Learning</option>
+<option value="Artificial Intelligence" {% if 'Artificial Intelligence' in selected_skills %}selected{% endif %}>Artificial Intelligence</option>
+<option value="Data Analysis" {% if 'Data Analysis' in selected_skills %}selected{% endif %}>Data Analysis</option>
+<option value="Data Visualization" {% if 'Data Visualization' in selected_skills %}selected{% endif %}>Data Visualization</option>
+<option value="Big Data" {% if 'Big Data' in selected_skills %}selected{% endif %}>Big Data</option>
+<option value="Pandas" {% if 'Pandas' in selected_skills %}selected{% endif %}>Pandas</option>
+<option value="NumPy" {% if 'NumPy' in selected_skills %}selected{% endif %}>NumPy</option>
+<option value="Matplotlib" {% if 'Matplotlib' in selected_skills %}selected{% endif %}>Matplotlib</option>
+<option value="Seaborn" {% if 'Seaborn' in selected_skills %}selected{% endif %}>Seaborn</option>
+<option value="TensorFlow" {% if 'TensorFlow' in selected_skills %}selected{% endif %}>TensorFlow</option>
+<option value="Keras" {% if 'Keras' in selected_skills %}selected{% endif %}>Keras</option>
+<option value="PyTorch" {% if 'PyTorch' in selected_skills %}selected{% endif %}>PyTorch</option>
+<option value="OpenCV" {% if 'OpenCV' in selected_skills %}selected{% endif %}>OpenCV</option>
+<option value="NLP" {% if 'NLP' in selected_skills %}selected{% endif %}>NLP</option>
+
+<!-- Cloud / DevOps -->
+<option value="Cloud Computing" {% if 'Cloud Computing' in selected_skills %}selected{% endif %}>Cloud Computing</option>
+<option value="AWS" {% if 'AWS' in selected_skills %}selected{% endif %}>AWS</option>
+<option value="Azure" {% if 'Azure' in selected_skills %}selected{% endif %}>Azure</option>
+<option value="Google Cloud" {% if 'Google Cloud' in selected_skills %}selected{% endif %}>Google Cloud</option>
+<option value="DevOps" {% if 'DevOps' in selected_skills %}selected{% endif %}>DevOps</option>
+<option value="Docker" {% if 'Docker' in selected_skills %}selected{% endif %}>Docker</option>
+<option value="Kubernetes" {% if 'Kubernetes' in selected_skills %}selected{% endif %}>Kubernetes</option>
+<option value="CI/CD" {% if 'CI/CD' in selected_skills %}selected{% endif %}>CI/CD</option>
+<option value="Jenkins" {% if 'Jenkins' in selected_skills %}selected{% endif %}>Jenkins</option>
+
+<!-- Tools -->
+<option value="Git" {% if 'Git' in selected_skills %}selected{% endif %}>Git</option>
+<option value="GitHub" {% if 'GitHub' in selected_skills %}selected{% endif %}>GitHub</option>
+<option value="GitLab" {% if 'GitLab' in selected_skills %}selected{% endif %}>GitLab</option>
+<option value="VS Code" {% if 'VS Code' in selected_skills %}selected{% endif %}>VS Code</option>
+<option value="Postman" {% if 'Postman' in selected_skills %}selected{% endif %}>Postman</option>
+<option value="Figma" {% if 'Figma' in selected_skills %}selected{% endif %}>Figma</option>
+<option value="Canva" {% if 'Canva' in selected_skills %}selected{% endif %}>Canva</option>
+
+<!-- Core CS -->
+<option value="Data Structures" {% if 'Data Structures' in selected_skills %}selected{% endif %}>Data Structures</option>
+<option value="Algorithms" {% if 'Algorithms' in selected_skills %}selected{% endif %}>Algorithms</option>
+<option value="OOPs" {% if 'OOPs' in selected_skills %}selected{% endif %}>OOPs</option>
+<option value="DBMS" {% if 'DBMS' in selected_skills %}selected{% endif %}>DBMS</option>
+<option value="Operating Systems" {% if 'Operating Systems' in selected_skills %}selected{% endif %}>Operating Systems</option>
+<option value="Computer Networks" {% if 'Computer Networks' in selected_skills %}selected{% endif %}>Computer Networks</option>
+
+<!-- Security -->
+<option value="Cyber Security" {% if 'Cyber Security' in selected_skills %}selected{% endif %}>Cyber Security</option>
+<option value="Ethical Hacking" {% if 'Ethical Hacking' in selected_skills %}selected{% endif %}>Ethical Hacking</option>
+<option value="Network Security" {% if 'Network Security' in selected_skills %}selected{% endif %}>Network Security</option>
+
+<!-- Mobile -->
+<option value="Android Development" {% if 'Android Development' in selected_skills %}selected{% endif %}>Android Development</option>
+<option value="iOS Development" {% if 'iOS Development' in selected_skills %}selected{% endif %}>iOS Development</option>
+<option value="Flutter" {% if 'Flutter' in selected_skills %}selected{% endif %}>Flutter</option>
+<option value="React Native" {% if 'React Native' in selected_skills %}selected{% endif %}>React Native</option>
+
+<!-- Testing -->
+<option value="Software Testing" {% if 'Software Testing' in selected_skills %}selected{% endif %}>Software Testing</option>
+<option value="Manual Testing" {% if 'Manual Testing' in selected_skills %}selected{% endif %}>Manual Testing</option>
+<option value="Automation Testing" {% if 'Automation Testing' in selected_skills %}selected{% endif %}>Automation Testing</option>
+<option value="Selenium" {% if 'Selenium' in selected_skills %}selected{% endif %}>Selenium</option>
+
+<!-- Business -->
+<option value="Project Management" {% if 'Project Management' in selected_skills %}selected{% endif %}>Project Management</option>
+<option value="Product Management" {% if 'Product Management' in selected_skills %}selected{% endif %}>Product Management</option>
+<option value="Business Analysis" {% if 'Business Analysis' in selected_skills %}selected{% endif %}>Business Analysis</option>
+<option value="Entrepreneurship" {% if 'Entrepreneurship' in selected_skills %}selected{% endif %}>Entrepreneurship</option>
+
+<!-- Soft Skills -->
+<option value="Communication" {% if 'Communication' in selected_skills %}selected{% endif %}>Communication</option>
+<option value="Leadership" {% if 'Leadership' in selected_skills %}selected{% endif %}>Leadership</option>
+<option value="Teamwork" {% if 'Teamwork' in selected_skills %}selected{% endif %}>Teamwork</option>
+<option value="Time Management" {% if 'Time Management' in selected_skills %}selected{% endif %}>Time Management</option>
+<option value="Problem Solving" {% if 'Problem Solving' in selected_skills %}selected{% endif %}>Problem Solving</option>
+<option value="Critical Thinking" {% if 'Critical Thinking' in selected_skills %}selected{% endif %}>Critical Thinking</option>
+<option value="Creativity" {% if 'Creativity' in selected_skills %}selected{% endif %}>Creativity</option>
+<option value="Adaptability" {% if 'Adaptability' in selected_skills %}selected{% endif %}>Adaptability</option>
+<option value="Public Speaking" {% if 'Public Speaking' in selected_skills %}selected{% endif %}>Public Speaking</option>
+<option value="Decision Making" {% if 'Decision Making' in selected_skills %}selected{% endif %}>Decision Making</option>
+
+                        </select>
+                    </div>
+
+
+                    <!-- FOCUS -->
+                    <div class="col-md-6">
+                        <label class="form-label d-flex justify-content-between align-items-center">
+                            Focus Level 
+                            <span id="focusValue" class="range-value">
+                                {{ existing.focus_level if existing else 1 }}
+                            </span>
+                        </label>
+
+                        <input id="focusRange"
+                               type="range"
+                               name="focus_level"
+                               class="form-range"
+                               min="1" max="10"
+                               value="{{ existing.focus_level if existing else 1 }}"
+                               required>
+                    </div>
+
+                    <!-- FINANCIAL -->
+                    <div class="col-md-6">
+                        <label class="form-label d-flex justify-content-between align-items-center">
+                            Financial Stability 
+                            <span id="financeValue" class="range-value">
+                                {{ existing.financial_stability if existing else 1 }}
+                            </span>
+                        </label>
+
+                        <input id="financeRange"
+                               type="range"
+                               name="financial_stability"
+                               class="form-range"
+                               min="1" max="10"
+                               value="{{ existing.financial_stability if existing else 1 }}"
+                               required>
+                    </div>
+
+                    <!-- DISTRICT -->
+                    <div class="col-12">
+                        <label class="form-label">Current Location (Karnataka District)</label>
+
+                        {% set d = existing.district if existing else '' %}
+
+                        <select name="district" class="form-select form-select-lg bg-dark text-white border-secondary" required>
+                            <option value="" disabled {% if not d %}selected{% endif %}>Select Karnataka district</option>
+
+                            <option value="Bagalkot" {% if d=='Bagalkot' %}selected{% endif %}>Bagalkot</option>
+                            <option value="Ballari" {% if d=='Ballari' %}selected{% endif %}>Ballari</option>
+                            <option value="Belagavi" {% if d=='Belagavi' %}selected{% endif %}>Belagavi</option>
+                            <option value="Bengaluru Rural" {% if d=='Bengaluru Rural' %}selected{% endif %}>Bengaluru Rural</option>
+                            <option value="Bengaluru Urban" {% if d=='Bengaluru Urban' %}selected{% endif %}>Bengaluru Urban</option>
+                            <option value="Bidar" {% if d=='Bidar' %}selected{% endif %}>Bidar</option>
+                            <option value="Chamarajanagar" {% if d=='Chamarajanagar' %}selected{% endif %}>Chamarajanagar</option>
+                            <option value="Chikkaballapur" {% if d=='Chikkaballapur' %}selected{% endif %}>Chikkaballapur</option>
+                            <option value="Chikkamagaluru" {% if d=='Chikkamagaluru' %}selected{% endif %}>Chikkamagaluru</option>
+                            <option value="Chitradurga" {% if d=='Chitradurga' %}selected{% endif %}>Chitradurga</option>
+                            <option value="Dakshina Kannada" {% if d=='Dakshina Kannada' %}selected{% endif %}>Dakshina Kannada</option>
+                            <option value="Davanagere" {% if d=='Davanagere' %}selected{% endif %}>Davanagere</option>
+                            <option value="Dharwad" {% if d=='Dharwad' %}selected{% endif %}>Dharwad</option>
+                            <option value="Gadag" {% if d=='Gadag' %}selected{% endif %}>Gadag</option>
+                            <option value="Hassan" {% if d=='Hassan' %}selected{% endif %}>Hassan</option>
+                            <option value="Haveri" {% if d=='Haveri' %}selected{% endif %}>Haveri</option>
+                            <option value="Kalaburagi" {% if d=='Kalaburagi' %}selected{% endif %}>Kalaburagi</option>
+                            <option value="Kodagu" {% if d=='Kodagu' %}selected{% endif %}>Kodagu</option>
+                            <option value="Kolar" {% if d=='Kolar' %}selected{% endif %}>Kolar</option>
+                            <option value="Koppal" {% if d=='Koppal' %}selected{% endif %}>Koppal</option>
+                            <option value="Mandya" {% if d=='Mandya' %}selected{% endif %}>Mandya</option>
+                            <option value="Mysuru" {% if d=='Mysuru' %}selected{% endif %}>Mysuru</option>
+                            <option value="Raichur" {% if d=='Raichur' %}selected{% endif %}>Raichur</option>
+                            <option value="Ramanagara" {% if d=='Ramanagara' %}selected{% endif %}>Ramanagara</option>
+                            <option value="Shivamogga" {% if d=='Shivamogga' %}selected{% endif %}>Shivamogga</option>
+                            <option value="Tumakuru" {% if d=='Tumakuru' %}selected{% endif %}>Tumakuru</option>
+                            <option value="Udupi" {% if d=='Udupi' %}selected{% endif %}>Udupi</option>
+                            <option value="Uttara Kannada" {% if d=='Uttara Kannada' %}selected{% endif %}>Uttara Kannada</option>
+                            <option value="Vijayapura" {% if d=='Vijayapura' %}selected{% endif %}>Vijayapura</option>
+                            <option value="Yadgir" {% if d=='Yadgir' %}selected{% endif %}>Yadgir</option>
+                        </select>
+                    </div>
+
+                    <!-- PREFERRED LOCATION -->
+                    <div class="col-12">
+                        <label class="form-label">Preferred Work / Study Location (India)</label>
+
+                        {% set p = existing.preferred_location if existing else '' %}
+
+                        <select name="preferred_location" class="form-select form-select-lg bg-dark text-white border-secondary" required>
+                            <option value="" disabled {% if not p %}selected{% endif %}>Select State</option>
+
+                            <option value="All India" {% if p=='All India' %}selected{% endif %}>All India</option>
+                            <option value="Andhra Pradesh" {% if p=='Andhra Pradesh' %}selected{% endif %}>Andhra Pradesh</option>
+                            <option value="Arunachal Pradesh" {% if p=='Arunachal Pradesh' %}selected{% endif %}>Arunachal Pradesh</option>
+                            <option value="Assam" {% if p=='Assam' %}selected{% endif %}>Assam</option>
+                            <option value="Bihar" {% if p=='Bihar' %}selected{% endif %}>Bihar</option>
+                            <option value="Chhattisgarh" {% if p=='Chhattisgarh' %}selected{% endif %}>Chhattisgarh</option>
+                            <option value="Goa" {% if p=='Goa' %}selected{% endif %}>Goa</option>
+                            <option value="Gujarat" {% if p=='Gujarat' %}selected{% endif %}>Gujarat</option>
+                            <option value="Haryana" {% if p=='Haryana' %}selected{% endif %}>Haryana</option>
+                            <option value="Himachal Pradesh" {% if p=='Himachal Pradesh' %}selected{% endif %}>Himachal Pradesh</option>
+                            <option value="Jharkhand" {% if p=='Jharkhand' %}selected{% endif %}>Jharkhand</option>
+                            <option value="Karnataka" {% if p=='Karnataka' %}selected{% endif %}>Karnataka</option>
+                            <option value="Kerala" {% if p=='Kerala' %}selected{% endif %}>Kerala</option>
+                            <option value="Madhya Pradesh" {% if p=='Madhya Pradesh' %}selected{% endif %}>Madhya Pradesh</option>
+                            <option value="Maharashtra" {% if p=='Maharashtra' %}selected{% endif %}>Maharashtra</option>
+                            <option value="Manipur" {% if p=='Manipur' %}selected{% endif %}>Manipur</option>
+                            <option value="Meghalaya" {% if p=='Meghalaya' %}selected{% endif %}>Meghalaya</option>
+                            <option value="Mizoram" {% if p=='Mizoram' %}selected{% endif %}>Mizoram</option>
+                            <option value="Nagaland" {% if p=='Nagaland' %}selected{% endif %}>Nagaland</option>
+                            <option value="Odisha" {% if p=='Odisha' %}selected{% endif %}>Odisha</option>
+                            <option value="Punjab" {% if p=='Punjab' %}selected{% endif %}>Punjab</option>
+                            <option value="Rajasthan" {% if p=='Rajasthan' %}selected{% endif %}>Rajasthan</option>
+                            <option value="Sikkim" {% if p=='Sikkim' %}selected{% endif %}>Sikkim</option>
+                            <option value="Tamil Nadu" {% if p=='Tamil Nadu' %}selected{% endif %}>Tamil Nadu</option>
+                            <option value="Telangana" {% if p=='Telangana' %}selected{% endif %}>Telangana</option>
+                            <option value="Tripura" {% if p=='Tripura' %}selected{% endif %}>Tripura</option>
+                            <option value="Uttar Pradesh" {% if p=='Uttar Pradesh' %}selected{% endif %}>Uttar Pradesh</option>
+                            <option value="Uttarakhand" {% if p=='Uttarakhand' %}selected{% endif %}>Uttarakhand</option>
+                            <option value="West Bengal" {% if p=='West Bengal' %}selected{% endif %}>West Bengal</option>
+                            <option value="Delhi" {% if p=='Delhi' %}selected{% endif %}>Delhi</option>
+                        </select>
+                    </div>
+
+                    <!-- SUBMIT -->
+                    <div class="col-12 text-center pt-3">
+                        <button type="submit" class="btn btn-accent btn-lg px-5">Submit</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    function updateRangeValue(rangeId, valueId) {
+        const range = document.getElementById(rangeId);
+        const value = document.getElementById(valueId);
+
+        if (!range || !value) return;
+
+        value.innerText = range.value;
+
+        range.addEventListener("input", () => {
+            value.innerText = range.value;
+        });
+    }
+
+    updateRangeValue("focusRange", "focusValue");
+    updateRangeValue("financeRange", "financeValue");
+new TomSelect("#skillsSelect", {
+    plugins: ['remove_button'],
+    placeholder: "Select your skills...",
+
+    maxItems: null,
+    closeAfterSelect: false,
+    hideSelected: true,
+    allowEmptyOption: true,
+
+    // 🔥 FIXES YOUR PROBLEM
+    maxOptions: 1000,   // increase limit
+
+    searchField: ['text', 'value'], // better search
+
+    sortField: [
+        {field: "text", direction: "asc"}
+    ]
+});
+
+});
+</script>
+{% endblock %}
+
+{% block styles %}
+<style>
+
+/* FORCE TOMSELECT OVERRIDE */
+.tom-select,
+.ts-wrapper {
+    width: 100% !important;
+}
+
+/* INPUT BOX */
+.ts-wrapper .ts-control {
+    background-color: #1e1e1e !important;
+    border: 1px solid #00d4ff !important;
+    border-radius: 12px !important;
+    padding: 10px !important;
+    color: white !important;
+    box-shadow: none !important;
+}
+
+/* INPUT TEXT */
+.ts-wrapper .ts-control input {
+    color: white !important;
+}
+
+/* SELECTED TAGS */
+.ts-wrapper .ts-control .item {
+    background: #00d4ff !important;
+    color: #000 !important;
+    border-radius: 6px !important;
+    padding: 4px 8px !important;
+    margin: 2px !important;
+}
+
+/* DROPDOWN */
+.ts-dropdown {
+    background-color: #1e1e1e !important;
+    border: 1px solid #00d4ff !important;
+}
+
+/* OPTIONS */
+.ts-dropdown .option {
+    color: white !important;
+    padding: 10px !important;
+}
+
+/* HOVER */
+.ts-dropdown .option:hover {
+    background: rgba(0, 212, 255, 0.2) !important;
+    color: #00d4ff !important;
+}
+
+/* ACTIVE */
+.ts-dropdown .active {
+    background: #00d4ff !important;
+    color: #000 !important;
+}
+
+</style>
+{% endblock %}
